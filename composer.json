@@ -1,0 +1,12 @@
+{
+  "name": "nathanwa/328/application2",
+  "authors": [
+    {
+      "name": "Nathan Waters",
+      "email": "waters.nathan@student.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree": "dev-master"
+  }
+}
