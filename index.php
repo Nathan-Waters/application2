@@ -24,12 +24,43 @@ $f3->route('GET /', function() {
     $view = new Template();
     echo $view->render('views/home.html');
 });
-
-$f3->route('GET /info', function() {
+$f3->route('GET /home', function() {
 
     // Display a view page
     $view = new Template();
+    echo $view->render('views/home.html');
+});
+
+$f3->route('GET|POST /info', function($f3) {
+    var_dump($_SESSION['REQUEST_METHOD']);
+    var_dump($_POST);
+
+    if(sizeof($_POST)!=0){
+
+
+        $f3->reroute('exp');
+    }
+
+    $view = new Template();
     echo $view->render('views/info.html');
+});
+
+$f3->route('GET|POST /exp', function($f3) {
+    // Display a view page
+    if(sizeof($_POST)!=0){
+
+
+        $f3->reroute('jobs');
+    }
+    $view = new Template();
+    echo $view->render('views/exp.html');
+});
+
+$f3->route('GET /jobs', function() {
+    // Display a view page
+
+    $view = new Template();
+    echo $view->render('views/jobs.html');
 });
 
 // Run Fat-Free
