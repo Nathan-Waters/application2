@@ -25,6 +25,7 @@ $f3->route('GET /', function() {
     echo $view->render('views/home.html');
 });
 
+// added to be able to go back to the home page
 $f3->route('GET /home', function() {
 
     // Display a view page
@@ -33,13 +34,13 @@ $f3->route('GET /home', function() {
 });
 
 $f3->route('GET|POST /info', function($f3) {
-    var_dump($_SESSION);
-    var_dump($_GET);
 
+    // Display a view page
+
+    //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        var_dump($_POST);
-        var_dump($_GET);
 
+        //set post data and store it in the sessions array
         $fName = $_POST['fName'];
         $f3->set('SESSION.fName', $fName);
 
@@ -63,10 +64,13 @@ $f3->route('GET|POST /info', function($f3) {
 });
 
 $f3->route('GET|POST /exp', function($f3) {
-    var_dump($_SESSION);
-    var_dump($_POST);
+
     // Display a view page
+
+    //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+        //set post data and store it in the sessions array
         $bio = $_POST['bio'];
         $f3->set('SESSION.bio', $bio);
 
@@ -86,15 +90,12 @@ $f3->route('GET|POST /exp', function($f3) {
 });
 
 $f3->route('GET|POST /jobs', function($f3) {
-//    var_dump($_SESSION);
-//    var_dump($_POST);
     // Display a view page
 
+    //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-            var_dump($_POST);
-//        $softwareJobs = $_POST['softwareJobs'];
 
-
+        //set post data and store it in the sessions array
         $softwareJobs = implode(", ",$_POST['softwareJobs']);
         $f3->set('SESSION.softwareJobs', $softwareJobs);
 
@@ -108,8 +109,6 @@ $f3->route('GET|POST /jobs', function($f3) {
 });
 
 $f3->route('GET /summary', function() {
-    var_dump($_SESSION['fName']);
-    var_dump($_POST);
     $view = new Template();
     echo $view->render('views/summary.html');
 });
