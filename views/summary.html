@@ -21,19 +21,35 @@
         </a>
     </nav>
 </header>
-<section class="container pb-3">
+<section class="container p-3">
     <div class="row">
-        <div class="col-6">
-            <div class="container border">
-                <p>Name: {{@SESSION.fName + " " + {{@SESSION.lName}}}} </p>
+        <div class="col-7">
+            <div class="container border rounded">
+                <p class="border-bottom p-2">Name: {{@SESSION.fName}} {{@SESSION.lName}} </p>
+                <p class="border-bottom p-2">Email: {{@SESSION.email}}</p>
+                <p class="border-bottom p-2">State: {{@SESSION.state}}</p>
+                <p class="border-bottom p-2">Phone: {{@SESSION.phone}}</p>
+
+
+                <p class="border-bottom p-2">Github Link: {{@SESSION.github}}</p>
+                <p class="border-bottom p-2">Willing To Relocate: {{@SESSION.exp}}</p>
+                <p>Mailing List: {{@SESSION.softwareJobs}}, {{@SESSION.specificJobs}}</p>
+
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-5">
 
+            <img class="align-center" src="images/blue-person.jpg" alt="blue avatar"/>
+            <h3>Summary</h3>
+            <p>{{@SESSION.bio}}</p>
         </div>
     </div>
+    <div class="row d-flex align-items-center justify-content-center">
+        <button class="btn btn-primary col-6" type="submit">Submit My Application!</button>
+    </div>
 
-</section>
+
+    <!--</section>-->
 <!--<h3 class="pt-5">{{@SESSION.fName}}</h3>-->
 <!--<h3 class="pt-5">{{@SESSION.lName}}</h3>-->
 <!--<h3 class="pt-5">{{@SESSION.email}}</h3>-->
