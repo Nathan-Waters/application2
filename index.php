@@ -104,6 +104,10 @@ $f3->route('GET|POST /jobs', function($f3) {
 
         $f3->reroute('summary');
     }
+
+    $f3->set('devJobs', getDevJobs());
+    $f3->set('industryJobs', getIndustryJobs());
+
     $view = new Template();
     echo $view->render('views/jobs.html');
 });
