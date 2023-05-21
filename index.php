@@ -13,6 +13,7 @@ error_reporting(E_ALL);
 
 // Require the autoload file
 require_once('vendor/autoload.php');
+require_once('model/data-layer.php');
 
 // Create an F3 (Fat-Free Framework) object
 $f3 = Base::instance();
@@ -94,13 +95,13 @@ $f3->route('GET|POST /jobs', function($f3) {
 
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-
+        var_dump($_POST);
         //set post data and store it in the sessions array
-        $softwareJobs = implode(", ",$_POST['softwareJobs']);
-        $f3->set('SESSION.softwareJobs', $softwareJobs);
+        $devJobs = implode(", ",$_POST['devJobs']);
+        $f3->set('SESSION.devJobs', $devJobs);
 
-        $specificJobs = implode(", ",$_POST['specificJobs']);
-        $f3->set('SESSION.specificJobs', $specificJobs);
+        $industryJobs = implode(", ",$_POST['industryJobs']);
+        $f3->set('SESSION.industryJobs', $industryJobs);
 
         $f3->reroute('summary');
     }
