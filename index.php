@@ -92,8 +92,6 @@ $f3->route('GET|POST /info', function($f3) {
             $f3->set('errors["phone"]', 'Invalid Phone Number');
         }
 
-
-
         if(empty($f3->get('errors'))){
             $f3->reroute('exp');
         }
@@ -107,6 +105,9 @@ $f3->route('GET|POST /exp', function($f3) {
 
     // Display a view page
 
+    $github = "";
+    $exp = "";
+
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -114,16 +115,32 @@ $f3->route('GET|POST /exp', function($f3) {
         $bio = $_POST['bio'];
         $f3->set('SESSION.bio', $bio);
 
-        $github = $_POST['github'];
-        $f3->set('SESSION.github', $github);
+        if (isset($_POST['github'])){
+            $github = $_POST['github'];
+        }
+        if(validGithub($github)){
+            $f3->set('SESSION.github', $github);
+        } else {
+            $f3->set('errors["github"]', 'Invalid Github URL');
+        }
 
-        $exp = $_POST['exp'];
-        $f3->set('SESSION.exp', $exp);
+        if (isset($_POST['exp'])){
+            $exp = $_POST['exp'];
+        }
+        if(validExp($exp)){
+            $f3->set('SESSION.exp', $exp);
+        } else {
+            $f3->set('errors["exp"]', 'Must Select Value');
+        }
+
+
 
         $relocate = $_POST['relocate'];
         $f3->set('SESSION.relocate', $relocate);
 
-        $f3->reroute('jobs');
+        if(empty($f3->get('errors'))){
+            $f3->reroute('jobs');
+        }
     }
     $view = new Template();
     echo $view->render('views/exp.html');

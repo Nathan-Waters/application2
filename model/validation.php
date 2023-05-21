@@ -21,3 +21,11 @@ function validEmail($email){
 function validPhone($phone){
     return is_numeric($phone) && strlen($phone) == 10;
 }
+
+function validGithub($github){
+    return (filter_var($github, FILTER_VALIDATE_URL));
+}
+
+function validExp($exp){
+    return (!empty($exp));
+}
