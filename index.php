@@ -14,6 +14,7 @@ error_reporting(E_ALL);
 // Require the autoload file
 require_once('vendor/autoload.php');
 require_once('model/data-layer.php');
+require_once('model/validation.php');
 
 // Create an F3 (Fat-Free Framework) object
 $f3 = Base::instance();
@@ -38,26 +39,64 @@ $f3->route('GET|POST /info', function($f3) {
 
     // Display a view page
 
+    $fName = "";
+    $lName = "";
+    $email = "";
+    $phone = "";
+
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
         //set post data and store it in the sessions array
-        $fName = $_POST['fName'];
-        $f3->set('SESSION.fName', $fName);
 
-        $lName = $_POST['lName'];
-        $f3->set('SESSION.lName', $lName);
+        //first name validation
+        if (isset($_POST['fName'])){
+            $fName = $_POST['fName'];
+        }
+        if(validFName($fName)){
+            $f3->set('SESSION.fName', $fName);
+        } else {
+            $f3->set('errors["fName"]', 'Invalid First Name');
+        }
 
-        $email = $_POST['email'];
-        $f3->set('SESSION.email', $email);
+        //last name validation
+        if (isset($_POST['lName'])){
+            $lName = $_POST['lName'];
+        }
+        if (validLName($lName)){
+            $f3->set('SESSION.lName', $lName);
+        } else{
+            $f3->set('errors["lName"]', 'Invalid Last Name');
+        }
+
+        //email validation
+        if (isset($_POST['email'])){
+            $email = $_POST['email'];
+        }
+        if(validEmail($email)){
+            $f3->set('SESSION.email', $email);
+        } else {
+            $f3->set('errors["email"]', 'Invalid Email');
+        }
 
         $state = $_POST['state'];
         $f3->set('SESSION.state', $state);
 
-        $phone = $_POST['phone'];
-        $f3->set('SESSION.phone', $phone);
+        //phone validation
+        if (isset($_POST['phone'])){
+            $phone = $_POST['phone'];
+        }
+        if(validPhone($phone)){
+            $f3->set('SESSION.phone', $phone);
+        } else {
+            $f3->set('errors["phone"]', 'Invalid Phone Number');
+        }
 
-        $f3->reroute('exp');
+
+
+        if(empty($f3->get('errors'))){
+            $f3->reroute('exp');
+        }
     }
 
     $view = new Template();

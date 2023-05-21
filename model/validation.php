@@ -6,27 +6,18 @@
     This is part of the MODEL
 */
 
-function validMeal($meal)
-{
-    // If meal is not empty
-    // and is in the array of
-    // valid meals, return true
-    // Otherwise, return false
-    /*
-    if (!empty($meal) && in_array($meal, getMeals())) {
-        return true;
-    }
-    else {
-        return false;
-    }
-    */
-    return (!empty($meal) && in_array($meal, getMeals()));
-    //return true;
+function validFName($fName){
+    return(!empty($fName) && ctype_alpha($fName));
 }
 
-/* Add a validFood() function */
-function validFood($food)
-{
-    $food = trim($food);
-    return (strlen($food) >= 2 && !ctype_digit($food));
+function validLName($lName){
+    return(!empty($lName) && ctype_alpha($lName));
+}
+
+function validEmail($email){
+    return (filter_var($email, FILTER_VALIDATE_EMAIL));
+}
+
+function validPhone($phone){
+    return is_numeric($phone) && strlen($phone) == 10;
 }

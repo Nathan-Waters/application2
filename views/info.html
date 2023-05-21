@@ -28,12 +28,21 @@
     <form action="#" method="POST">
         <div class="row">
             <div class="col-4">
-                <label class="form-label" for="fName">First Name</label><br>
+                <label class="form-label" for="fName">First Name</label>
+                <check if="{{ isset(@errors['fName']) }}">
+                    <span class="err">{{ @errors['fName'] }}</span>
+                </check>
+                <br>
                 <input class="form-control" type="text" id="fName" name="fName">
+
 
             </div>
             <div class="col-4">
-                <label class="form-label" for="lName">Last Name</label><br>
+                <label class="form-label" for="lName">Last Name</label>
+                <check if="{{ isset(@errors['lName']) }}">
+                    <span class="err">{{ @errors['lName'] }}</span>
+                </check>
+                <br>
                 <input class="form-control" type="text" id="lName" name="lName">
             </div>
 
@@ -46,7 +55,11 @@
 
         <div class="row">
             <div class="col-8">
-                <label class="form-label" for="email">Email</label><br>
+                <label class="form-label" for="email">Email</label>
+                <check if="{{ isset(@errors['email']) }}">
+                    <span class="err">{{ @errors['email'] }}</span>
+                </check>
+                <br>
                 <input class="form-control" type="text" id="email" name="email">
             </div>
         </div>
@@ -126,8 +139,12 @@
             </div>
 
             <div class="col-4">
-                <label class="form-label" for="phone">Phone</label><br>
-                <input class="form-control" type="text" id="phone" name="phone">
+                <label class="form-label" for="phone">Phone</label>
+                <check if="{{ isset(@errors['phone']) }}">
+                    <span class="err">{{ @errors['phone'] }}</span>
+                </check>
+                <br>
+                <input class="form-control" type="text" id="phone" name="phone" placeholder="ex: 1112223333">
             </div>
 
             <div class="col-4 d.inline">
