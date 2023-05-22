@@ -29,3 +29,25 @@ function validGithub($github){
 function validExp($exp){
     return (!empty($exp));
 }
+
+function validSoftwareJobs($sdevJobs){
+    $validSdevJobs = getDevJobs();
+
+    foreach ($sdevJobs as $sdevJob) {
+        if (!in_array($sdevJob, $validSdevJobs)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validIndustryJobs($industryJobs){
+    $validIndustryJobs = getIndustryJobs();
+
+    foreach ($industryJobs as $industryJob) {
+        if (!in_array($industryJob, $validIndustryJobs)) {
+            return false;
+        }
+    }
+    return true;
+}

@@ -30,6 +30,9 @@
         <div class="col">
             <form action="#" method="post">
                 <h5>Software Development Jobs</h5>
+                <check if="{{ isset(@errors['devJobs']) }}">
+                    <span class="err">{{ @errors['devJobs'] }}</span>
+                </check>
                 <div class="row">
                     <repeat group="{{ @devJobs }}" value="{{ @devJobs }}">
                         <div class="col-3">

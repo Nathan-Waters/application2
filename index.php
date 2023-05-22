@@ -149,17 +149,37 @@ $f3->route('GET|POST /exp', function($f3) {
 $f3->route('GET|POST /jobs', function($f3) {
     // Display a view page
 
+    $devJobs = "";
+
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         var_dump($_POST);
         //set post data and store it in the sessions array
-        $devJobs = implode(", ",$_POST['devJobs']);
-        $f3->set('SESSION.devJobs', $devJobs);
 
-        $industryJobs = implode(", ",$_POST['industryJobs']);
-        $f3->set('SESSION.industryJobs', $industryJobs);
+        //if dev jobs have been selected
+        if (!empty($_POST['devJobs'])){
 
-        $f3->reroute('summary');
+            $devJobs = $_POST['devJobs'];
+            if(validSoftwareJobs($devJobs)){
+                $f3->set('SESSION.devJobs', implode(", ",$devJobs));
+            } else {
+                $f3->set('errors["devJobs"]', 'Go away!');
+            }
+        }
+
+        if (!empty($_POST['industryJobs'])){
+
+            $industryJobs = $_POST['industryJobs'];
+            if(validIndustryJobs($industryJobs)){
+                $f3->set('SESSION.industryJobs', implode(", ",$industryJobs));
+            } else {
+                $f3->set('errors["industryJobs"]', 'Go away!');
+            }
+        }
+
+        if(empty($f3->get('errors'))){
+            $f3->reroute('summary');
+        }
     }
 
     $f3->set('devJobs', getDevJobs());
