@@ -16,6 +16,8 @@ require_once('vendor/autoload.php');
 require_once('model/data-layer.php');
 require_once('model/validation.php');
 
+//$testApp = new Applicant();
+
 // Create an F3 (Fat-Free Framework) object
 $f3 = Base::instance();
 
@@ -49,12 +51,15 @@ $f3->route('GET|POST /info', function($f3) {
 
         //set post data and store it in the sessions array
 
+        $newApp = new Applicant();
+
         //first name validation
         if (isset($_POST['fName'])){
             $fName = $_POST['fName'];
         }
         if(validFName($fName)){
-            $f3->set('SESSION.fName', $fName);
+            $newApp->setFName($fName);
+//            $f3->set('SESSION.fName', $fName);
         } else {
             $f3->set('errors["fName"]', 'Invalid First Name');
         }
@@ -64,7 +69,8 @@ $f3->route('GET|POST /info', function($f3) {
             $lName = $_POST['lName'];
         }
         if (validLName($lName)){
-            $f3->set('SESSION.lName', $lName);
+            $newApp->setLName($lName);
+//            $f3->set('SESSION.lName', $lName);
         } else{
             $f3->set('errors["lName"]', 'Invalid Last Name');
         }
@@ -74,25 +80,31 @@ $f3->route('GET|POST /info', function($f3) {
             $email = $_POST['email'];
         }
         if(validEmail($email)){
-            $f3->set('SESSION.email', $email);
+            $newApp->setEmail($email);
+//            $f3->set('SESSION.email', $email);
         } else {
             $f3->set('errors["email"]', 'Invalid Email');
         }
 
         $state = $_POST['state'];
-        $f3->set('SESSION.state', $state);
+        $newApp->setState($state);
+//        $f3->set('SESSION.state', $state);
 
         //phone validation
         if (isset($_POST['phone'])){
             $phone = $_POST['phone'];
         }
         if(validPhone($phone)){
-            $f3->set('SESSION.phone', $phone);
+            $newApp->setPhone($phone);
+//            $f3->set('SESSION.phone', $phone);
         } else {
             $f3->set('errors["phone"]', 'Invalid Phone Number');
         }
 
         if(empty($f3->get('errors'))){
+            //add order object to session array
+            $f3->set('SESSION.app', $newApp);
+//            var_dump($f3->get('SESSION.app'));
             $f3->reroute('exp');
         }
     }
@@ -105,21 +117,26 @@ $f3->route('GET|POST /exp', function($f3) {
 
     // Display a view page
 
+    $newApp = $f3->get('SESSION.app');
+
+    $bio = "";
     $github = "";
     $exp = "";
 
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-
         //set post data and store it in the sessions array
         $bio = $_POST['bio'];
-        $f3->set('SESSION.bio', $bio);
+//        $f3->get('SESSION.app')->setBio($bio);
+        $newApp->setBio($bio);
+//        $f3->set('SESSION.bio', $bio);
 
         if (isset($_POST['github'])){
             $github = $_POST['github'];
         }
         if(validGithub($github)){
-            $f3->set('SESSION.github', $github);
+            $newApp->setGithub($github);
+//            $f3->set('SESSION.github', $github);
         } else {
             $f3->set('errors["github"]', 'Invalid Github URL');
         }
@@ -128,17 +145,19 @@ $f3->route('GET|POST /exp', function($f3) {
             $exp = $_POST['exp'];
         }
         if(validExp($exp)){
-            $f3->set('SESSION.exp', $exp);
+            $newApp->setExp($exp);
+//            $f3->set('SESSION.exp', $exp);
         } else {
             $f3->set('errors["exp"]', 'Must Select Value');
         }
 
-
-
         $relocate = $_POST['relocate'];
+        $newApp->setRelocate($relocate);
         $f3->set('SESSION.relocate', $relocate);
 
         if(empty($f3->get('errors'))){
+            $f3->set('SESSION.app', $newApp);
+//            var_dump($f3->get('SESSION.app'));
             $f3->reroute('jobs');
         }
     }
@@ -148,6 +167,8 @@ $f3->route('GET|POST /exp', function($f3) {
 
 $f3->route('GET|POST /jobs', function($f3) {
     // Display a view page
+
+    $newApp = $f3->get('SESSION.app');
 
     $devJobs = "";
 
@@ -161,7 +182,10 @@ $f3->route('GET|POST /jobs', function($f3) {
 
             $devJobs = $_POST['devJobs'];
             if(validSoftwareJobs($devJobs)){
-                $f3->set('SESSION.devJobs', implode(", ",$devJobs));
+//                $newApp->setBio($bio);
+                $devJobs = implode(", ",$devJobs);
+//                $f3->set('SESSION.devJobs', implode(", ",$devJobs));
+                $newApp->setDevJobs($devJobs);
             } else {
                 $f3->set('errors["devJobs"]', 'Go away!');
             }
@@ -171,13 +195,17 @@ $f3->route('GET|POST /jobs', function($f3) {
 
             $industryJobs = $_POST['industryJobs'];
             if(validIndustryJobs($industryJobs)){
-                $f3->set('SESSION.industryJobs', implode(", ",$industryJobs));
+                $industryJobs = implode(", ",$industryJobs);
+//                $f3->set('SESSION.industryJobs', implode(", ",$industryJobs));
+                $newApp->setIndustryJobs($industryJobs);
             } else {
                 $f3->set('errors["industryJobs"]', 'Go away!');
             }
         }
 
         if(empty($f3->get('errors'))){
+            $f3->set('SESSION.app', $newApp);
+//            var_dump($f3->get('SESSION.app'));
             $f3->reroute('summary');
         }
     }
