@@ -25,15 +25,19 @@
     <div class="row">
         <div class="col-7">
             <div class="container border rounded">
-                <p class="border-bottom p-2 mt-3">Name: {{@SESSION.fName}} {{@SESSION.lName}} </p>
-                <p class="border-bottom p-2">Email: {{@SESSION.email}}</p>
-                <p class="border-bottom p-2">State: {{@SESSION.state}}</p>
-                <p class="border-bottom p-2">Phone: {{@SESSION.phone}}</p>
+                <p class="border-bottom p-2 mt-3">Name: {{@SESSION.app->getFName()}} {{@SESSION.app->getLName()}} </p>
+                <p class="border-bottom p-2">Email: {{@SESSION.app->getEmail()}}</p>
+                <p class="border-bottom p-2">State: {{@SESSION.app->getState()}}</p>
+                <p class="border-bottom p-2">Phone: {{@SESSION.app->getPhone()}}</p>
 
 
-                <p class="border-bottom p-2">Github Link: {{@SESSION.github}}</p>
-                <p class="border-bottom p-2">Willing To Relocate: {{@SESSION.exp}}</p>
-                <p class="p-2 mb-1">Mailing List: {{@SESSION.devJobs}}, {{@SESSION.industryJobs}}</p>
+                <p class="border-bottom p-2">Github Link: {{@SESSION.app->getGithub()}}</p>
+                <p class="border-bottom p-2">Willing To Relocate: {{@SESSION.app->getExp()}}</p>
+<!--                <p>{{@SESSION.mailingList}}things</p>-->
+                <check if="{{@SESSION.mailingList}}">
+                    <p class="p-2 mb-1">Mailing List: {{@SESSION.app->getDevJobs()}}, {{@SESSION.app->getIndustryJobs()}}</p>
+
+                </check>
 
             </div>
         </div>
@@ -41,7 +45,7 @@
 
             <img class="align-center" src="images/blue-person.jpg" alt="blue avatar"/>
             <h3>Summary</h3>
-            <p>{{@SESSION.bio}}</p>
+            <p>{{@SESSION.app->getBio()}}</p>
         </div>
     </div>
     <div class="row d-flex align-items-center justify-content-center">

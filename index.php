@@ -51,7 +51,19 @@ $f3->route('GET|POST /info', function($f3) {
 
         //set post data and store it in the sessions array
 
-        $newApp = new Applicant();
+
+        if (isset($_POST["true"])){
+           $newApp = new Applicant_SubscribedToList();
+//           $this->_f3->set('SESSION.appSub', true);
+            $f3->set('SESSION.mailingList', true);
+        } else{
+//            echo "things";
+            $newApp = new Applicant();
+//            $_SESSION["appSub"] = false;
+            $f3->set('SESSION.mailingList', false);
+//            $this->_f3->set('SESSION.appSub', false);
+        }
+
 
         //first name validation
         if (isset($_POST['fName'])){
@@ -105,6 +117,8 @@ $f3->route('GET|POST /info', function($f3) {
             //add order object to session array
             $f3->set('SESSION.app', $newApp);
 //            var_dump($f3->get('SESSION.app'));
+//            var_dump($_POST);
+
             $f3->reroute('exp');
         }
     }
@@ -118,6 +132,7 @@ $f3->route('GET|POST /exp', function($f3) {
     // Display a view page
 
     $newApp = $f3->get('SESSION.app');
+    var_dump($_SESSION);
 
     $bio = "";
     $github = "";
@@ -158,7 +173,15 @@ $f3->route('GET|POST /exp', function($f3) {
         if(empty($f3->get('errors'))){
             $f3->set('SESSION.app', $newApp);
 //            var_dump($f3->get('SESSION.app'));
-            $f3->reroute('jobs');
+
+//            var_dump($_SESSION);
+            $mailing = $f3->get('SESSION.mailingList');
+            if($mailing){
+                $f3->reroute('jobs');
+            } else {
+                $f3->reroute('summary');
+            }
+
         }
     }
     $view = new Template();
@@ -168,13 +191,21 @@ $f3->route('GET|POST /exp', function($f3) {
 $f3->route('GET|POST /jobs', function($f3) {
     // Display a view page
 
+
     $newApp = $f3->get('SESSION.app');
+//    var_dump($newApp);
+//    var_dump($_SESSION[""]);
+//    $newApp->
+//    $newApp = new Applicant_SubscribedToList();
+
+
+//    $newApp = new Applicant();
 
     $devJobs = "";
 
     //check for POST
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        var_dump($_POST);
+        var_dump($_SESSION);
         //set post data and store it in the sessions array
 
         //if dev jobs have been selected
@@ -182,9 +213,7 @@ $f3->route('GET|POST /jobs', function($f3) {
 
             $devJobs = $_POST['devJobs'];
             if(validSoftwareJobs($devJobs)){
-//                $newApp->setBio($bio);
                 $devJobs = implode(", ",$devJobs);
-//                $f3->set('SESSION.devJobs', implode(", ",$devJobs));
                 $newApp->setDevJobs($devJobs);
             } else {
                 $f3->set('errors["devJobs"]', 'Go away!');
@@ -196,7 +225,6 @@ $f3->route('GET|POST /jobs', function($f3) {
             $industryJobs = $_POST['industryJobs'];
             if(validIndustryJobs($industryJobs)){
                 $industryJobs = implode(", ",$industryJobs);
-//                $f3->set('SESSION.industryJobs', implode(", ",$industryJobs));
                 $newApp->setIndustryJobs($industryJobs);
             } else {
                 $f3->set('errors["industryJobs"]', 'Go away!');
@@ -205,7 +233,6 @@ $f3->route('GET|POST /jobs', function($f3) {
 
         if(empty($f3->get('errors'))){
             $f3->set('SESSION.app', $newApp);
-//            var_dump($f3->get('SESSION.app'));
             $f3->reroute('summary');
         }
     }
@@ -218,6 +245,7 @@ $f3->route('GET|POST /jobs', function($f3) {
 });
 
 $f3->route('GET /summary', function() {
+    var_dump($_SESSION);
     $view = new Template();
     echo $view->render('views/summary.html');
 });
