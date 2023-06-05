@@ -5,15 +5,16 @@
     This is part of the MODEL
     Eventually, this will read/write the DB
 */
+class DataLayer
+{
 
-function getDevJobs(){
-    $devJobs = array("JavaScript", "PHP", "Java", "Python", "HTML", "CSS", "ReactJS", "NodeJS");
-    return $devJobs;
+    static function getDevJobs(){
+        $devJobs = array("JavaScript", "PHP", "Java", "Python", "HTML", "CSS", "ReactJS", "NodeJS");
+        return $devJobs;
+    }
+
+    static function getIndustryJobs(){
+        $industryJobs = array("SaaS", "Health tech", "Ag tech", "HR tech", "Industrial tech", "Cybersecurity");
+        return $industryJobs;
+    }
 }
-
-function getIndustryJobs(){
-    $industryJobs = array("SaaS", "Health tech", "Ag tech", "HR tech", "Industrial tech", "Cybersecurity");
-    return $industryJobs;
-}
-
-

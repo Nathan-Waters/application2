@@ -31,7 +31,7 @@ function validExp($exp){
 }
 
 function validSoftwareJobs($sdevJobs){
-    $validSdevJobs = getDevJobs();
+    $validSdevJobs = DataLayer::getDevJobs();
 
     foreach ($sdevJobs as $sdevJob) {
         if (!in_array($sdevJob, $validSdevJobs)) {
@@ -42,7 +42,7 @@ function validSoftwareJobs($sdevJobs){
 }
 
 function validIndustryJobs($industryJobs){
-    $validIndustryJobs = getIndustryJobs();
+    $validIndustryJobs = DataLayer::getIndustryJobs();
 
     foreach ($industryJobs as $industryJob) {
         if (!in_array($industryJob, $validIndustryJobs)) {
