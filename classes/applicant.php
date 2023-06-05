@@ -18,10 +18,6 @@ class Applicant
     private $_github;
     private $_exp;
     private $_relocate;
-//
-//    private $_devJobs;
-//    private $_industryJobs;
-
 
     /**
      * default constructor
@@ -147,32 +143,4 @@ class Applicant
     {
         return $this->_relocate;
     }
-//    /**
-//     * devJobs Getter/Setter
-//     */
-//    public function setDevJobs ($devJobs)
-//    {
-//        $this->_devJobs = $devJobs;
-//    }
-//    public function getDevJobs()
-//    {
-//        return $this->_devJobs;
-//    }
-//
-//    /**
-//     * industryJobs Getter/Setter
-//     */
-//    public function setIndustryJobs ($industryJobs)
-//    {
-//        $this->_industryJobs = $industryJobs;
-//    }
-//    public function getIndustryJobs()
-//    {
-//        return $this->_industryJobs;
-//    }
 }
-
-//test code
-//$newApp = new Applicant();
-//$newApp->setFName("sam");
-//echo $newApp->getFName();

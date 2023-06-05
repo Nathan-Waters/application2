@@ -32,17 +32,14 @@
 
 
                 <p class="border-bottom p-2">Github Link: {{@SESSION.app->getGithub()}}</p>
-                <p class="border-bottom p-2">Willing To Relocate: {{@SESSION.app->getExp()}}</p>
-<!--                <p>{{@SESSION.mailingList}}things</p>-->
+                <p class="p-2 pb-0">Willing To Relocate: {{@SESSION.app->getExp()}}</p>
                 <check if="{{@SESSION.mailingList}}">
-                    <p class="p-2 mb-1">Mailing List: {{@SESSION.app->getDevJobs()}}, {{@SESSION.app->getIndustryJobs()}}</p>
-
+                <p class="border-top pt-3 p-2 mb-1">Mailing List: {{@SESSION.app->getDevJobs()}}, {{@SESSION.app->getIndustryJobs()}}</p>
                 </check>
 
             </div>
         </div>
         <div class="col-5">
-
             <img class="align-center" src="images/blue-person.jpg" alt="blue avatar"/>
             <h3>Summary</h3>
             <p>{{@SESSION.app->getBio()}}</p>

@@ -54,14 +54,10 @@ $f3->route('GET|POST /info', function($f3) {
 
         if (isset($_POST["true"])){
            $newApp = new Applicant_SubscribedToList();
-//           $this->_f3->set('SESSION.appSub', true);
             $f3->set('SESSION.mailingList', true);
         } else{
-//            echo "things";
             $newApp = new Applicant();
-//            $_SESSION["appSub"] = false;
             $f3->set('SESSION.mailingList', false);
-//            $this->_f3->set('SESSION.appSub', false);
         }
 
 
@@ -71,7 +67,6 @@ $f3->route('GET|POST /info', function($f3) {
         }
         if(validFName($fName)){
             $newApp->setFName($fName);
-//            $f3->set('SESSION.fName', $fName);
         } else {
             $f3->set('errors["fName"]', 'Invalid First Name');
         }
@@ -82,7 +77,6 @@ $f3->route('GET|POST /info', function($f3) {
         }
         if (validLName($lName)){
             $newApp->setLName($lName);
-//            $f3->set('SESSION.lName', $lName);
         } else{
             $f3->set('errors["lName"]', 'Invalid Last Name');
         }
@@ -93,14 +87,12 @@ $f3->route('GET|POST /info', function($f3) {
         }
         if(validEmail($email)){
             $newApp->setEmail($email);
-//            $f3->set('SESSION.email', $email);
         } else {
             $f3->set('errors["email"]', 'Invalid Email');
         }
 
         $state = $_POST['state'];
         $newApp->setState($state);
-//        $f3->set('SESSION.state', $state);
 
         //phone validation
         if (isset($_POST['phone'])){
@@ -108,7 +100,6 @@ $f3->route('GET|POST /info', function($f3) {
         }
         if(validPhone($phone)){
             $newApp->setPhone($phone);
-//            $f3->set('SESSION.phone', $phone);
         } else {
             $f3->set('errors["phone"]', 'Invalid Phone Number');
         }
@@ -116,9 +107,6 @@ $f3->route('GET|POST /info', function($f3) {
         if(empty($f3->get('errors'))){
             //add order object to session array
             $f3->set('SESSION.app', $newApp);
-//            var_dump($f3->get('SESSION.app'));
-//            var_dump($_POST);
-
             $f3->reroute('exp');
         }
     }
@@ -132,7 +120,6 @@ $f3->route('GET|POST /exp', function($f3) {
     // Display a view page
 
     $newApp = $f3->get('SESSION.app');
-    var_dump($_SESSION);
 
     $bio = "";
     $github = "";
@@ -142,16 +129,13 @@ $f3->route('GET|POST /exp', function($f3) {
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         //set post data and store it in the sessions array
         $bio = $_POST['bio'];
-//        $f3->get('SESSION.app')->setBio($bio);
         $newApp->setBio($bio);
-//        $f3->set('SESSION.bio', $bio);
 
         if (isset($_POST['github'])){
             $github = $_POST['github'];
         }
         if(validGithub($github)){
             $newApp->setGithub($github);
-//            $f3->set('SESSION.github', $github);
         } else {
             $f3->set('errors["github"]', 'Invalid Github URL');
         }
@@ -161,7 +145,6 @@ $f3->route('GET|POST /exp', function($f3) {
         }
         if(validExp($exp)){
             $newApp->setExp($exp);
-//            $f3->set('SESSION.exp', $exp);
         } else {
             $f3->set('errors["exp"]', 'Must Select Value');
         }
@@ -172,9 +155,6 @@ $f3->route('GET|POST /exp', function($f3) {
 
         if(empty($f3->get('errors'))){
             $f3->set('SESSION.app', $newApp);
-//            var_dump($f3->get('SESSION.app'));
-
-//            var_dump($_SESSION);
             $mailing = $f3->get('SESSION.mailingList');
             if($mailing){
                 $f3->reroute('jobs');
@@ -191,15 +171,7 @@ $f3->route('GET|POST /exp', function($f3) {
 $f3->route('GET|POST /jobs', function($f3) {
     // Display a view page
 
-
     $newApp = $f3->get('SESSION.app');
-//    var_dump($newApp);
-//    var_dump($_SESSION[""]);
-//    $newApp->
-//    $newApp = new Applicant_SubscribedToList();
-
-
-//    $newApp = new Applicant();
 
     $devJobs = "";
 
@@ -245,7 +217,6 @@ $f3->route('GET|POST /jobs', function($f3) {
 });
 
 $f3->route('GET /summary', function() {
-    var_dump($_SESSION);
     $view = new Template();
     echo $view->render('views/summary.html');
 });
